@@ -105,6 +105,7 @@ public class OrderUpdateService {
 			// Applying order discounts 
 			float discountedItemPrice = orderDiscountAsPercent==0 ? item.getPrice() : Util.percentReduction(item.getPrice(), orderDiscountAsPercent) ;
 			
+			
 			// float discountedItemPrice = item.getPrice(); 
 			
 			//Applying line discounts 
