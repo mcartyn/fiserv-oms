@@ -109,7 +109,8 @@ public class OrderUpdateService {
 			
 			//Applying line discounts 
 			if (item.getDiscount_type()!= null && item.getDiscount_type().equalsIgnoreCase("percent")) {
-				 discountedItemPrice = Util.percentReduction (discountedItemPrice, item.getDiscount_amount());   
+//				 discountedItemPrice = Util.percentReduction (discountedItemPrice, item.getDiscount_amount());
+				 discountedItemPrice = Util.roundOff(Util.percentReduction (discountedItemPrice, item.getDiscount_amount()));   
 			} else if (item.getDiscount_type()!= null && item.getDiscount_type().equalsIgnoreCase("amount")){
 				 discountedItemPrice = Math.max(discountedItemPrice - item.getDiscount_amount(), 0);  
 			} 
@@ -117,7 +118,8 @@ public class OrderUpdateService {
 			total += discountedItemPrice;
 			 
 			 // calculating taxes.
-			float itemTax = Util.roundOff(Util.roundedPercent(discountedItemPrice, item.getTax_rate()));
+//			float itemTax = Util.roundOff(Util.roundedPercent(discountedItemPrice, item.getTax_rate()));
+			float itemTax = Util.percent(discountedItemPrice, item.getTax_rate());
 //			System.out.println(itemTax);
 			
 			tax += itemTax;

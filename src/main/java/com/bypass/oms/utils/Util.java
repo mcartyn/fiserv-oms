@@ -15,7 +15,7 @@ public class Util {
 		return x; 
 	}
 	
-	public static float roundedPercent (float x, float percent) {
+	public static float percent (float x, float percent) {
 		return x*percent; 
 //		return x; 
 	}
