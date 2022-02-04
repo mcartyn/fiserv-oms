@@ -1,0 +1,29 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: AWS Serverless Spring Boot API - com.bypass.oms::oms
+Globals:
+  Api:
+    EndpointConfiguration: REGIONAL
+Resources:
+  OmsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: com.bypass.oms.StreamLambdaHandler::handleRequest
+      Runtime: java8
+      CodeUri: s3://myspring-boot-lambda-aws/b205a22415d821c0693d2eb4f4d9d883
+      MemorySize: 512
+      Policies: AWSLambdaBasicExecutionRole
+      Timeout: 30
+      Events:
+        ProxyResource:
+          Type: Api
+          Properties:
+            Path: /{proxy+}
+            Method: any
+Outputs:
+  OmsApi:
+    Description: URL for application
+    Value:
+      Fn::Sub: https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/ping
+    Export:
+      Name: OmsApi
